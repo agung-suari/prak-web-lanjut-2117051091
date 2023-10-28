@@ -3,7 +3,8 @@
     <div class="container">
         <div class="form-box">
             <div class="form">
-                <form action="<?= base_url('/user/store');?>" method="POST"  enctype="multipart/form-data">
+                <form action="<?= base_url('/user/' . $user['id'])?>" method="POST"  enctype="multipart/form-data">
+                <?= csrf_field() ?>    
                     <div class="mb-3">
                         <label class="form-label">Nama Lengkap</label>
                         <?php if (session('validation') && session('validation')->hasError('nama')) : ?>
@@ -11,7 +12,7 @@
                                 <?= session('validation')->getError('nama'); ?>
                             </div>
                         <?php endif; ?>
-                        <input type="text" class="form-control <?= session('validation') && session('validation')->hasError('nama') ? 'is-invalid' : '' ?>"  placeholder="Nama" name="nama">
+                        <input type="text" class="form-control <?= session('validation') && session('validation')->hasError('nama') ? 'is-invalid' : '' ?>"  placeholder="Nama" name="nama" value="<?= $user['nama'] ?>">
                     </div>
                     
                     <div class="mb-3">
@@ -21,7 +22,7 @@
                                 <?= session('validation')->getError('npm'); ?>
                             </div>
                         <?php endif; ?>
-                        <input type="text" class="form-control <?= session('validation') ? 'is-invalid' : '' ?>" placeholder="NPM" name="npm">
+                        <input type="text" class="form-control <?= session('validation') ? 'is-invalid' : '' ?>" placeholder="NPM" name="npm" value="<?= $user['npm'] ?>">
                     </div> 
                     
                     <div class="mb-3">
@@ -31,18 +32,21 @@
                                 <?php
                                 foreach ($kelas as $item) {
                                 ?>
-                                    <option value="<?= $item['id'] ?>"><?= $item['nama_kelas'] ?></option>
+                                    <option value="<?= $item['id'] ?>" <?=$user['id_kelas']== $item['id'] ? 'selected' : '' ?>><?= $item['nama_kelas'] ?></option>
                             <?php } ?>
                         </select>
                     </div> 
 
                     <div class="mb-3">
                         <label class="form-label">Foto</label><br>
+                        <img src="<?= $user['foto'] ?? '<default-foto>'?>" class="mb-3" width="100px"><br>
                         <input class="form-control" type="file" name="foto">
                     </div>
+                    <input type="hidden" name="_method" value="PUT">
                     <input class="btn btn-primary" type="submit">
                 </form>
             </div>
         </div>
     </div>
+   
 <?= $this->endSection('content') ?>
