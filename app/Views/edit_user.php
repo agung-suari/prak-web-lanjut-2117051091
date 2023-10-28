@@ -2,8 +2,8 @@
 <?= $this->section('content')?>
     <div class="container">
         <div class="form-box">
-            <div class="form">
-                <form action="<?= base_url('/user/' . $user['id'])?>" method="POST"  enctype="multipart/form-data">
+            <form action="<?= base_url('/user/' . $user['id'])?>" method="POST"  enctype="multipart/form-data">
+                <div class="form">
                 <?= csrf_field() ?>    
                     <div class="mb-3">
                         <label class="form-label">Nama Lengkap</label>
@@ -43,10 +43,9 @@
                         <input class="form-control" type="file" name="foto">
                     </div>
                     <input type="hidden" name="_method" value="PUT">
-                    <input class="btn btn-primary" type="submit">
+                    <input class="btn btn-dark" type="submit" value="Simpan Data">
                 </form>
             </div>
         </div>
     </div>
-   
 <?= $this->endSection('content') ?>
